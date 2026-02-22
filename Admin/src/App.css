@@ -1,0 +1,20 @@
+.AdminLayout{
+  min-height: 100vh;
+  background-color: var(--bs-dark);
+}
+.content-expanded {
+  margin-left: 260px;
+  transition: .6s;
+}
+.content-collapsed {
+  margin-left: 150px;
+  transition: .3s;
+}
+.admin-content{
+  min-height: 100vh;
+  padding: 20px 50px;
+  background-color: var(--bs-warning);
+}
+.form-control{
+  padding: 15px!important;
+}

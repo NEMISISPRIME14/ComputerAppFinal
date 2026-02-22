@@ -1,0 +1,25 @@
+.whatCard {
+    margin: auto;
+    border-radius: 50px;
+    width: 300px!important;
+    height: 250px!important;
+    padding: 5px;
+    line-height: 1.5;
+    transition: all 0.3s ease-in-out;
+}
+.whatCard .card-icon {
+    font-size: 4em!important;
+}
+.whatCard .card-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.whatCard .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.whatCard:hover{
+    box-shadow: 0 0 10px #333;
+}

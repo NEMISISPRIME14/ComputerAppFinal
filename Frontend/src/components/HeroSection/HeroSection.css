@@ -1,0 +1,63 @@
+.carHero {
+    right: -200px;
+}
+
+.hero-content-container {
+    display: flex !important;
+}
+
+.hero-content {
+    width: fit-content;
+    height: fit-content;
+}
+
+.hero-content h2 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.hero-content h3 {
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+.hero-content p {
+    letter-spacing: 2px;
+    font-weight: 300;
+}
+
+.image-container {
+    height: 450px;
+    width: 450px;
+}
+
+.hero-content button {
+    transition: all .3s;
+}
+
+.hero-content button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (max-width: 768px) {
+    .hero-content-container {
+        flex-direction: column-reverse !important;
+
+    }
+    .hero-content h2 {
+        font-size: 2rem !important;
+    }
+
+    .hero-content h3 {
+        font-size: 3rem !important;
+    }
+
+    .hero-content p {
+        font-size: .8rem !important;
+    }
+
+    .hero-content button {
+        font-size: .8rem !important;
+    }
+}

@@ -1,0 +1,110 @@
+.sidebar-container{
+  height: 100vh!important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 260px !important;;
+  display: flex;
+  align-items: center;
+  justify-content: space-around ;
+  flex-direction: column;
+  background-color:var(--bs-dark);
+  transition: all .3s ease-in-out;
+}
+.sidebar-container-collapsed{
+  height: 100vh!important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  width: 150px !important;;
+  display: flex;
+  align-items: center;
+  justify-content: space-around ;
+  flex-direction: column;
+  background-color:var(--bs-dark)!important;
+  transition: all .3s ease-in-out;
+}
+.sidebar-title{
+  position: relative;
+  padding: 0 15px;
+  font-weight: 700!important;
+  font-size: 20px;
+  margin: 0 10px;
+}
+.sidebar-title::before{
+  content: '';
+  position: absolute;
+  width: 5px;
+  height:100%;
+  left: 0;
+  background-color: #f8d442;
+  bottom: 0;
+}
+.sidebar-header{
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  top:50%;
+  right: -25px;
+  background-color: var(--bs-dark);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sidebar-header button{
+  background-color: #f2eae1;
+  color: #ffffff;
+  padding: 0px !important;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  opacity: .8;
+  transition: all .3s ease-in-out;
+}
+.sidebar-header button:active{
+  border: none;
+  color: rgb(255, 255, 255)!important;
+  opacity: 1;
+}
+.sidebar-header button:hover{
+  opacity: 1;
+  color: #ffffff;
+}
+.ps-menuitem-root{
+  width: 75%!important;
+}
+.ps-sidebar-container{
+  background: none !important;
+}
+.logout-btn button{
+  color: #ffffff;
+  font-size: 14px;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+.menu-item{
+  margin: 10px 0!important;
+}
+.menu-item-uncollapsed{
+  width: 75%!important;
+  margin: auto;
+}
+.menu-item-collapsed{
+  width: 100%!important;
+}
+.ps-menu-button{
+  transition: all .2s ease-in-out;
+}
+.ps-menu-button:hover{
+  background-color: #ffffff!important;
+  color: var(--bs-dark)!important;
+}
+.isActive{
+  background-color: var(--bs-light)!important;
+  color: var(--bs-dark);
+}

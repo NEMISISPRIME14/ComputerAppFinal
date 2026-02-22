@@ -1,0 +1,11 @@
+.nav-pills li {
+    transition: all 0.3s ease-in-out;
+    font-size: .9em;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.nav-pills li:hover {
+    background-color: #ffbf00;
+    box-shadow: 0 0 5px #ffbf00;
+}

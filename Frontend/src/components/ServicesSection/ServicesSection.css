@@ -1,0 +1,15 @@
+.card {
+    height: 400px!important;
+    width: 300px!important;
+    transition: all .3s;
+}
+.card-text{
+    font-size: 14px;
+}
+.card-img-top{
+    height: 200px!important;
+    object-fit: cover;
+}
+.card span{
+    width: fit-content;
+}
