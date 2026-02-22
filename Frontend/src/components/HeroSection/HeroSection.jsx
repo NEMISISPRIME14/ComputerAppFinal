@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { AuthContext } from '../Context/AuthContext'
 import './HeroSection.css'
-import homeCar from '../../assets/images/homeCar.png'
+import homeCar from '../../assets/images/R.png'
 import { useNavigate } from 'react-router-dom'
 export default function HeroSection() {
     let { LoginData } = useContext(AuthContext)
@@ -16,7 +16,7 @@ export default function HeroSection() {
                     <div className="hero-content mx-auto text-md-start text-center" data-aos="fade-right" data-aos-duration="1000">
                         <h2 className='text-uppercase'>Welcome,</h2>
                         <h3 className="text-uppercase ">{LoginData?.first_name} {LoginData?.last_name}</h3>
-                        <p className="text-muted">Welcome to the Car Repair System</p>
+                        <p className="text-muted">Welcome to Easy Home</p>
                         <button className="btn btn-outline-dark mt-2 p-3 fs-5" onClick={handleClick}>APPLY FOR A SERVICE</button>
                     </div>
                 </div>

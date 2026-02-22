@@ -51,7 +51,7 @@ export default function Navbar() {
     <>
       <nav className="navbar navbar-expand-lg bg-transparent">
         <div className="navbar-container container ">
-          <a className="navbar-brand fw-bold text-uppercase fs-3">Car Repair</a>
+          <a className="navbar-brand fw-bold text-uppercase fs-3">Easy Home</a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />
           </button>

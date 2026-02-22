@@ -10,9 +10,6 @@ export default function Home() {
         <>
             <div className="container-fluid p-0 h-100" data-aos="fade-up" data-aos-duration="1000">
                 <HeroSection />
-                <ServicesSection />
-                <WhatWeOffer />
-                <Feedback />
             </div >
         </>
     )
