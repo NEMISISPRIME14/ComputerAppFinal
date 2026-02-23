@@ -9,21 +9,29 @@
 .hero-content {
     width: fit-content;
     height: fit-content;
+    color: rgb(0, 0, 0);
 }
 
 .hero-content h2 {
     font-size: 3rem;
     font-weight: bold;
+    color: rgb(24, 24, 24);
 }
 
 .hero-content h3 {
     font-size: 4rem;
     font-weight: bold;
+    color: rgb(24, 24, 24);
 }
 
 .hero-content p {
     letter-spacing: 2px;
     font-weight: 300;
+    color: rgb(24, 24, 24);
+}
+
+.hero-content p {
+    color: rgba(24, 24, 24, 0.75) !important;
 }
 
 .image-container {
@@ -31,14 +39,31 @@
     width: 450px;
 }
 
+/* hina el section bta3 el button */
+
+button.btn.btn-outline-dark {
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin-top: 20px;
+    background-color: transparent;
+    border: 2px solid rgb(31, 31, 31);
+    color: rgb(119, 119, 119);
+    cursor: pointer;
+}
+
 .hero-content button {
     transition: all .3s;
+    color: rgb(53, 53, 53);
+    border: 2px solid rgb(0, 0, 0);
 }
 
 .hero-content button:hover {
     transform: scale(1.1);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(27, 27, 27, 0.2);
+    color: rgb(0, 0, 0);
 }
+
+/* responsive design lel mobiles w keda */
 
 @media screen and (max-width: 768px) {
     .hero-content-container {
