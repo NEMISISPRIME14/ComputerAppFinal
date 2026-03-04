@@ -1,0 +1,135 @@
+ .scroll-1::-webkit-scrollbar {
+    width: 10px;
+    height: 8px;
+  }
+
+  .scroll-1::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: #888;
+  }
+
+  .apartment-cards-container * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    color: #fff;
+  }
+
+  .apartment-cards-container {
+    display: flex;
+    overflow-x: scroll;
+    padding: 10px;
+    width: 100%;
+    max-width: 1270px;
+    margin: 0 auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-top: 25px;
+    border-radius: 10px;
+    gap: 25px;
+  }
+
+  .apartment-cards-container .card {
+    flex: 0 0 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #141414;
+    scroll-snap-align: start;
+  }
+
+  .card .card__image {
+    flex: 0 0 70%;
+    height: 110px;
+  }
+
+  .card:nth-child(1) .card__image {
+    background-image: linear-gradient(
+        to right top,
+        #051937, 
+        #004d7a, 
+        #008793, 
+        #00bf72, 
+        #a8eb12
+    );
+  }
+
+  .card:nth-child(2) .card__image {
+    background-image: linear-gradient(
+      to right top, 
+      #dc09a5, 
+      #ce00b4, 
+      #ba00c5, 
+      #9c00d8, 
+      #6f12eb
+    );
+  }
+
+  .card:nth-child(3) .card__image {
+    background-image: linear-gradient(
+      to right top, 
+      #dc1009, 
+      #e55f00, 
+      #e49200, 
+      #dac000, 
+      #c7eb12
+    );
+  }
+
+  .card .card__content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+  }
+
+  .card .card__content .card__title {
+    font-size: 32px;
+    color: #fff;
+    text-transform: capitalize;
+  }
+
+  .card .card__content .card__describe {
+    color: #fff;
+    font-size: 16px;
+  }
+
+
+  .button-container {
+    display: flex;
+    justify-content: flex-end; /* pushes button to the right */
+    margin-top: 10px;
+  }
+
+  .card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  position: relative;
+}
+
+.card__title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.card__describe {
+    width: 30%;
+  font-size: 16px;
+  color: #fff;
+}
+
+/* Button container to align button right */
+.button-container {
+  display: flex;
+  justify-content: flex-end; /* pushes button to the right */
+  margin-top: 10px;
+}
+
+
+.card__image {
+  height: 140px;
+  background-size: cover;
+  background-position: center;
+}
+

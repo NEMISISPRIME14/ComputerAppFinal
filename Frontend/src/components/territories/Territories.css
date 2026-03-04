@@ -1,0 +1,101 @@
+.territories {
+  position: relative;
+  width: auto;        /* ✅ full width */
+  padding: 40px;
+}
+
+.territories__title {
+  font-size: 50px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center; /* ✅ centers the title */
+}
+
+.territories__list {
+  display: flex;
+  flex-wrap: wrap;    /* ✅ allows wrapping on smaller screens */
+  justify-content: center; /* ✅ centers the cards */
+  gap: 24px;          /* ✅ consistent spacing */
+}
+.territory-card {
+  flex: 0 0 300px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 420px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* ✅ smooth animation */
+}
+
+.territory-card:hover {
+  transform: scale(1.05); /* ✅ zooms in slightly */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2); /* ✅ stronger shadow for depth */
+}
+
+.territory-card__image {
+  height: 160px;
+  background: #ccc;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s ease; /* ✅ smooth zoom for image */
+}
+
+.territory-card:hover .territory-card__image {
+  transform: scale(1.1); /* ✅ zooms image a bit more */
+}
+
+.territory-card__content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.territory-card__title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.territory-card__stats {
+  font-size: 14px;
+  color: #571010;
+}
+
+.territory-card__desc {
+  font-size: 14px;
+  color: #777;
+  flex-grow: 1;
+}
+
+.territory-card__button {
+  align-self: center; /* ✅ centers the button horizontally */
+  background-color: #3654ff;
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.territory-card__button:hover {
+  background-color: #1f3ae0;
+}
+
+.territories-swiper {
+  width: 100%;
+  padding: 20px 0;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+
+.territory-card {
+  width: 100%;
+  max-width: 350px; /* keeps cards neat */
+}

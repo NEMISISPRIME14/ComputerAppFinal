@@ -1,0 +1,183 @@
+.features {
+  padding: 50px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 1300px;   /* keeps content centered */
+  margin: 10px auto 100px;
+  background-color: #e0e0e0;
+}
+
+.features__container {
+  display: flex;
+  gap: 40px;
+  align-items: stretch;
+  flex-wrap: wrap;     /* ✅ allows stacking on smaller screens */
+}
+
+/* Left side */
+.features__left {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.features__title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.features__subtitle {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.features__list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.feature-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  border-color: #ffb311a2;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.feature-item:hover {
+  box-shadow: 0 6px 16px rgba(255, 187, 1, 0.212);
+  transform: translateY(-2px);
+}
+
+.feature-icon {
+  font-size: 24px;
+  background-color: #eee;
+  border-radius: 50%;        /* ✅ ensures perfect circle */
+  width: 70px;               /* ✅ equal width/height */
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease; /* ✅ smooth animation */
+}
+
+/* Hover animation */
+.feature-item:hover .feature-icon {
+  background-color: #3654ff;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(54, 84, 255, 0.6);
+  transform: scale(1.2) rotate(10deg); /* ✅ zoom + slight rotation */
+}
+
+/* Right side images */
+.features__right {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+/* Large top image */
+.highlight-card.large {
+  width: 100%;
+  flex: 1;                  /* ✅ fills available height */
+  aspect-ratio: 16 / 7;     /* keeps proportions */
+}
+
+/* Row of two smaller images */
+.highlight-row {
+  display: flex;
+  gap: 20px;
+  flex: 1;                  /* ✅ row grows to match left column */
+}
+
+.highlight-card.small {
+  flex: 1;
+  min-width: 200px;
+  aspect-ratio: 4 / 5;
+  height: 100%;             /* ✅ rises to match left column height */
+}
+
+/* Make sure images fill their card */
+.highlight-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;         /* ✅ fills container perfectly */
+}
+
+
+.highlight-card {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.highlight-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+
+
+/* Large top image */
+.highlight-card.large {
+  width: 100%;
+  aspect-ratio: 16 / 7; /* ✅ scales proportionally */
+}
+
+/* Row of two smaller images */
+.highlight-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;     /* ✅ responsive row */
+}
+
+.highlight-card.small {
+  flex: 1;
+  min-width: 200px;
+  aspect-ratio: 4 / 5;
+}
+
+/* Gradient overlay + caption */
+.highlight-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.highlight-caption {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+  z-index: 2;
+}
+
+/* ✅ Mobile breakpoint */
+@media (max-width: 768px) {
+  .features__container {
+    flex-direction: column;
+  }
+}

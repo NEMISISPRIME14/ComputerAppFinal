@@ -9,6 +9,7 @@ import '@fortawesome/fontawesome-free/js/all.min.js'
 import AuthContextProvider from './components/Context/AuthContext.jsx'
 import ServicesContextProvider from './components/Context/ServicesContext.jsx'
 import MechanicsContextProvider, { MechanicsContext } from './components/Context/MechanicsContext.jsx'
+import "leaflet/dist/leaflet.css";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

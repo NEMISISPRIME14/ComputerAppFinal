@@ -1,0 +1,103 @@
+/* Overlay starts UNDER navbar so navbar stays visible */
+.pp-overlay{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99999;
+
+  background: rgba(10,12,20,0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  /* ✅ top alignment */
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+
+  /* space under navbar */
+  padding-top: 18px;
+}
+
+.pp-panel{
+  width: min(980px, 92vw);
+  padding: 12px 18px;
+}
+
+.pp-row{
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.pp-col{
+  flex-shrink: 1;
+  flex-basis: 0;
+  min-width: 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.pp-link{
+  text-decoration: none;
+  display: block;
+}
+
+/* Card itself (matches perfect profile behavior) */
+.pp-card{
+  position: relative;
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  user-select: none;
+}
+
+.pp-img{
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  pointer-events: none;
+}
+
+.pp-gradient{
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 50%;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, transparent 100%);
+}
+
+.pp-labelWrap{
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 20px;
+  pointer-events: none;
+}
+
+.pp-label{
+  color: white;
+  text-transform: uppercase;
+  font-family: Inter, system-ui, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 3px;
+}
+
+.pp-glow{
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  pointer-events: none;
+}
+
+@media (max-width: 860px){
+  .pp-row{
+    flex-direction: column;
+    height: auto !important;
+  }
+}

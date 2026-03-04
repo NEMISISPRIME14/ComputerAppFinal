@@ -3,6 +3,7 @@ import { AuthContext } from '../Context/AuthContext'
 import './HeroSection.css'
 import homeCar from '../../assets/images/R.png'
 import { useNavigate } from 'react-router-dom'
+
 export default function HeroSection() {
     let { LoginData } = useContext(AuthContext)
     let navigate = useNavigate()

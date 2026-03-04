@@ -1,8 +1,84 @@
+
+.nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 16px 22px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(14px);
+  background: linear-gradient(175deg, rgba(255,255,255,0) 22%, rgba(255,255,255,0.06) 70%);
+}
+
+.nav-logo {
+  height: 56px;
+  transition: transform 0.4s ease;
+}
+
+.nav-logo:hover {
+  transform: scale(1.05);
+}
+
+.nav-links {
+  display: flex;
+  gap: 26px;
+}
+
+.nav-links button {
+  background: transparent;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  position: relative;
+  padding: 6px 0;
+  transition: opacity 0.3s ease;
+}
+
+.nav-links button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background: #c6ab7c;
+  transition: width 0.3s ease;
+}
+
+.nav-links button:hover::after {
+  width: 100%;
+}
+
+.nav-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background: #9a9a9a;
+  transition: transform 0.3s ease;
+}
+
+.nav-avatar:hover {
+  transform: scale(1.1);
+}
+
+.nav,
+.slider,
+.bottom {
+  position: relative;
+  z-index: 5;
+}
+
 .nav-item {
     margin: 0 20px;
     width: fit-content;
     position: relative;
     font-weight: 500;
+    scroll-snap-type: none;
 }
 
 .nav-link {
@@ -21,7 +97,6 @@ a.navbar-brand {
 }
 
 .nav-item::after {
-    content: '';
     position: absolute;
     width: 0%;
     height: 2px;
@@ -37,9 +112,28 @@ a.navbar-brand {
     width: 100%;
 }
 
+.navbar{
+  position: sticky;
+  top: 0;
+  z-index: 100000; /* above overlay */
+}
+
+.profile-btn-reset{
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
 .navbar-container {
     position: relative;
     padding: 20px 0;
+    overflow-x: clip;
+    max-width: 100%;
+}
+
+.navbar-collapse {
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 .navbar-container::after {
@@ -59,48 +153,79 @@ a.navbar-brand {
 .nav-icon {
     color: #fff;
     border-radius: 6px;
-    padding: 5px;
+    padding: 5px 10px;
     font-size: 1rem;
     margin: 0 10px;
     background-color: #ffbb00;
     text-decoration: none;
-}
-
-.i-car::after {
-    content: 'Your Cars';
-    text-transform: uppercase;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
     white-space: nowrap;
-    max-width:0;        
-    transition: all .5s;
     overflow: hidden;
-    vertical-align: middle;
+}
+/* Make wrapper align with Bootstrap button height */
+.profile-wrapper {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  text-decoration: none;
 }
 
-.i-car:hover::after {
-    max-width: 200px;
-    transition: all .5s;
+/* Same height as Bootstrap .btn */
+.profile-box {
+  height: 38px; /* Bootstrap default btn height */
+  width: 38px;  /* Make it square */
+  border-radius: 8px; /* Match btn border radius */
 
-}
-.i-profile::after {
-    content: 'View Profile';
-    text-transform: uppercase;
-    display: inline-block;
-    white-space: nowrap;
-    max-width:0;        
-    transition: all .5s;
-    overflow: hidden;
-    vertical-align: middle;
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all 0.2s ease;
+
+  /* Clean shadow */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
-.i-profile:hover::after {
-    max-width: 200px;
-    transition: all .5s;
-
+.profile-box:hover {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  transform: translateY(-1px);
 }
+
+.profile-icon {
+  width: 18px;
+  height: 18px;
+  color: #3498db;
+}
+
+.profile-btn-reset {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
 .logout-btn{
     transition: all .3s!important;
 }
 .logout-btn:hover {
     letter-spacing: 5px;
+}
+
+
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    scroll-snap-type: none;
+}
+
+@media (max-width: 991.98px) {
+    .navbar-icons {
+        margin-top: 10px;
+        flex-wrap: wrap;
+        row-gap: 8px;
+    }
+
+    .nav-item {
+        margin: 6px 0;
+    }
 }

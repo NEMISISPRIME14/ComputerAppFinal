@@ -1,0 +1,16 @@
+  .scroll-container {
+    gap: 10px;
+      /* enables horizontal scroll */
+    padding: 24px;
+    scrollbar-width: thin; /* Firefox */
+  }
+
+  .scroll-container::-webkit-scrollbar {
+    height: 8px; /* horizontal scrollbar height */
+  }
+
+  .scroll-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 20px;
+  }
+  
