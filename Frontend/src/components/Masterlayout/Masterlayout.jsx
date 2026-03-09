@@ -32,7 +32,7 @@ export default function Masterlayout() {
   }, [])
   useEffect(() => {
     if (LoginData) {
-      document.title = `${LoginData?.first_name} ${LoginData?.last_name}`
+      document.title = `${LoginData?.name}`
     }
   }, [LoginData])
   const scrollToTop = () => { window.scrollTo({ top: 0, behavior: "smooth", }); };

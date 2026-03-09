@@ -16,7 +16,7 @@ export default function HeroSection() {
                 <div className=" col-md-6 d-flex justify-content-between align-items-center">
                     <div className="hero-content mx-auto text-md-start text-center" data-aos="fade-right" data-aos-duration="1000">
                         <h2 className='text-uppercase'>Welcome,</h2>
-                        <h3 className="text-uppercase ">{LoginData?.first_name} {LoginData?.last_name}</h3>
+                        <h3 className="text-uppercase ">{LoginData?.name}</h3>
                         <p className="text-muted">Welcome to Easy Home</p>
                     </div>
                 </div>

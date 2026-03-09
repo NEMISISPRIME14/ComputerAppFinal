@@ -215,11 +215,11 @@ router.post('/login', (req, res) => {
 
         const payload = {
             id: user.id,
-            first_name: user.first_name,
-            last_name: user.last_name,
+            name: user.name,
             email: user.email,
             phone: user.phone,
-            address: user.address
+            role: user.role
+           
             // password: user.password
         };
 
