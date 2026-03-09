@@ -3,7 +3,7 @@ let db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'car_service_system'
+    database: 'realestate'
 })
 db.connect((err) => {
     if (err) {

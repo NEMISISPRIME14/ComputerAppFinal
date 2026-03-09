@@ -1,7 +1,10 @@
 const db = require('../DBconnection/db');
 const express=require('express');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const activeTokens=require('../authToken');
+const multer = require('multer');
+const path = require('path');
 const JWT_SECRET='9eac032b704a445a7e13225488f7ac9dabb944c0f2a238b8822e54b90dff458d035780b27c33f24af5d2b8f82a1560de0052c9221d7fd9f04b46a5abf92a36ff';
 const router=express.Router();
 
@@ -47,23 +50,75 @@ router.get('/', (req, res) => {
     }
 })
 
-// Add User
-router.post('/signup', (req, res) => {
-    let { first_name, last_name, address, email, password, phone } = req.body;
-    let query = `INSERT INTO users (first_name, last_name, address, email, password, phone) VALUES (?,?,?,?,?,?)`;
-    if (!first_name || !last_name || !address || !email || !password || !phone) {
-        res.send('Please fill all the fields!')
-        return
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/national_ids/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
     }
-    db.query(query, [first_name, last_name, address, email, password, phone], (err, result) => {
-        if (err) {
-            console.log(err)
-            return res.status(500).send('Error adding user!')
+});
+
+const fileFilter = (req, file, cb) => {
+    const allowedTypes = /jpg|jpeg|png|pdf/;
+
+    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = /image|pdf/.test(file.mimetype);
+
+    if (extname && mimetype) {
+        cb(null, true);
+    } else {
+        cb(new Error('Only JPG, JPEG, PNG, or PDF files are allowed'));
+    }
+};
+
+const upload = multer({
+    storage,
+    fileFilter,
+    limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit (recommended)
+});
+
+
+// Add User
+router.post('/signup', upload.single('national_id'), async (req, res) => {
+    try {
+        let { name, phone, email, password, confirm_password, role } = req.body;
+
+        if (!name || !phone || !email || !password || !confirm_password || !role) {
+            return res.status(400).send('Please fill all the fields!');
         }
-        res.send(`${first_name} ${last_name} added successfully!`)
-        console.log('User added successfully!')
-    })
-})
+
+        if (password !== confirm_password) {
+            return res.status(400).send('Passwords do not match!');
+        }
+
+        if (!req.file) {
+            return res.status(400).send('National ID image is required!');
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const national_id = req.file.filename;
+
+        let query = `
+            INSERT INTO users (name, phone, national_id, email, password, role)
+            VALUES (?, ?, ?, ?, ?, ?)
+        `;
+
+        db.query(query, [name, phone, national_id, email, hashedPassword, role], (err, result) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).send('Error adding user!');
+            }
+
+            res.send(`${name} added successfully!`);
+        });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send('Server error');
+    }
+});
 
 // Update User
 router.put('/updateuser', (req, res) => {
@@ -118,28 +173,61 @@ router.delete('/deleteuser', (req, res) => {
 
 // Login User
 router.post('/login', (req, res) => {
-    let { email, password } = req.body;
-    let query = `SELECT * FROM users WHERE email=? AND password=? AND is_deleted = 0`;
-    if(!email || !password) {
-        res.send('Please fill all the fields!')
-        return
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).send('Please fill all the fields!');
     }
-    db.query(query, [email, password], (err, result) => {
+
+    const query = `SELECT * FROM users WHERE email=? AND is_deleted=0 LIMIT 1`;
+
+    db.query(query, [email], async (err, result) => {
         if (err) {
-            console.log(err)
-            return res.status(500).send('Error logging in!')
+            console.log(err);
+            return res.status(500).send('Error logging in!');
         }
+
         if (result.length === 0) {
-            return res.status(404).send('Invalid email or password!')
+            return res.status(404).send('Invalid email or password!');
         }
+
+        const user = result[0];
+        let isMatch = false;
+
+        // ✅ If password is already hashed
+        if (user.password.startsWith('$2')) {
+            isMatch = await bcrypt.compare(password, user.password);
+        } 
+        // ✅ If password is plain text (old accounts)
         else {
-            const user={'id':result[0].id,'first_name':result[0].first_name,'last_name':result[0].last_name,'email':result[0].email,'phone':result[0].phone,'address':result[0].address,'password':result[0].password}
-            const token=jwt.sign(user,JWT_SECRET,{expiresIn:'1h'});
-            activeTokens.add(token);
-            return res.send({'token':token})
+            isMatch = password === user.password;
+
+            // If matched, upgrade it to hashed
+            if (isMatch) {
+                const hashed = await bcrypt.hash(password, 10);
+                db.query('UPDATE users SET password=? WHERE id=?', [hashed, user.id]);
+            }
         }
-    })
-})
+
+        if (!isMatch) {
+            return res.status(404).send('Invalid email or password!');
+        }
+
+        const payload = {
+            id: user.id,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            email: user.email,
+            phone: user.phone,
+            address: user.address
+            // password: user.password
+        };
+
+        const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
+
+        return res.send({ token });
+    });
+});
 
 
 

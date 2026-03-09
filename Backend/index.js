@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const path = require('path');
 const port = 3000;
 const usersRouter=require('./api/users');
 const mechanicRouter=require('./api/mechanics');
@@ -27,10 +28,11 @@ app.use('/messages',messagesRouter);
 app.use('/faq',faqRouter);
 app.use('/appointments',appointmentsRouter);
 app.use('/admin',adminRouter);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+// app.get('/', (req, res) => {
+//     res.send('Hello World!')
+// })
 
 
 
