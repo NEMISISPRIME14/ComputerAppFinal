@@ -48,7 +48,7 @@ function OptionCard({ option, isHovered, fast }) {
   );
 }
 
-export default function ProfileOverlay({ open, onClose, navbarHeight = 80 }) {
+export default function ProfileOverlay({ open, onClose, navbarHeight = 109 }) {
   const [hovered, setHovered] = useState(null);
 
   // ✅ change these to your real routes + images (put images in /public/profile/)
@@ -56,7 +56,7 @@ export default function ProfileOverlay({ open, onClose, navbarHeight = 80 }) {
     () => [
       { id: 0, src: "/src/assets/sowar/certificate.png", label: "CERTIFICATE", to: "/home/certificate" },
       { id: 1, src: "/src/assets/sowar/track process.png", label: "TRACK PROCESS", to: "/home/track" },
-      { id: 2, src: "/profile/profile.jpg", label: "YOUR PROFILE", to: "/home/profile-management" },
+      { id: 2, src: "/src/assets/sowar/your profile.png", label: "YOUR PROFILE", to: "/home/profile-management" },
     ],
     []
   );

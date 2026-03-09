@@ -34,9 +34,8 @@ export default function Card() {
               style={{ backgroundImage: `url(${apt.image})` }}
             />
             <div className="card__content">
-              <span className="card__title">{apt.title}</span>
-              <p className="card__describe">{apt.description}</p>
-
+              <span className="card__title">madinty</span>
+              <p className="card__describe">i love madintyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy</p>
               <div className="button-container">
                 <Button />
               </div>

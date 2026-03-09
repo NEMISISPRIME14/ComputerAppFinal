@@ -16,17 +16,17 @@
   justify-content: center;
 
   /* space under navbar */
-  padding-top: 18px;
+  padding-top: 160px;
 }
 
 .pp-panel{
-  width: min(980px, 92vw);
+  width: min(1500px, 92vw);
   padding: 12px 18px;
 }
 
 .pp-row{
   display: flex;
-  gap: 12px;
+  gap: 15px;
   width: 100%;
   overflow: hidden;
 }

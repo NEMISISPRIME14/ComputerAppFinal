@@ -11,16 +11,15 @@
   .apartment-cards-container * {
     box-sizing: border-box;
     padding: 0;
-    margin: 0;
+    margin: 8px;
     color: #fff;
   }
 
   .apartment-cards-container {
     display: flex;
     overflow-x: scroll;
-    padding: 10px;
     width: 100%;
-    max-width: 1270px;
+    max-width: 1670px;
     margin: 0 auto;
     scroll-snap-type: x mandatory;
     scroll-padding-top: 25px;
@@ -77,18 +76,18 @@
   .card .card__content {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 20px;
+    gap: 50px;
+    padding: 10px;
   }
 
   .card .card__content .card__title {
     font-size: 32px;
-    color: #fff;
+    color: #000000;
     text-transform: capitalize;
   }
 
   .card .card__content .card__describe {
-    color: #fff;
+    color: #000000;
     font-size: 16px;
   }
 

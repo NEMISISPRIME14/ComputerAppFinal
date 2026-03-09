@@ -50,7 +50,7 @@ const Features = () => {
       <div className="features__container">
         {/* Left side */}
         <div className="features__left">
-          <h2 className="features__title">Why Choose RealEstate.eg?</h2>
+          <h2 className="features__title">Why Choose EasyHome?</h2>
           <p className="features__subtitle">
             Egypt’s most trusted real estate platform with unmatched expertise and service
           </p>

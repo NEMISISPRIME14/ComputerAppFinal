@@ -197,7 +197,7 @@ a.navbar-brand {
 .profile-icon {
   width: 18px;
   height: 18px;
-  color: #3498db;
+  color: #000000;
 }
 
 .profile-btn-reset {
@@ -228,4 +228,82 @@ a.navbar-brand {
     .nav-item {
         margin: 6px 0;
     }
+}
+
+/* ===== Search Bar ===== */
+
+.search-container {
+  width: 60px;
+  height: 60px;
+  padding: 15px;
+  background: #4070f4;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  transition: width 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.08);
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.search-container:hover {
+  width: 270px;
+}
+
+/* search icon */
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  fill: white;
+}
+
+/* input field */
+.search-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+  font-size: 18px;
+  margin-left: 15px;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* show input when expanded */
+.search-container:hover .search-input {
+  opacity: 1;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* navbar alignment */
+.navbar-icons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* responsive */
+@media (max-width: 768px) {
+
+  .search-container {
+    width: 50px;
+    height: 50px;
+    padding: 12px;
+  }
+
+  .search-container:hover {
+    width: 220px;
+  }
+
+  .search-input {
+    font-size: 16px;
+  }
+
 }

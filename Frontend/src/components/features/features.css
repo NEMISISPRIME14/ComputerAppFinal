@@ -1,8 +1,8 @@
 .features {
-  padding: 50px;
+  padding: 40px 30px;
   border-radius: 12px;
   width: 100%;
-  max-width: 1300px;   /* keeps content centered */
+  max-width: 1400px;   /* keeps content centered */
   margin: 10px auto 100px;
   background-color: #e0e0e0;
 }

@@ -1,6 +1,8 @@
 import React from "react";
 import Button from "../button/button"; // reuse your button
 import "./Territories.css"; // create this CSS file for styling
+import { Link } from "react-router-dom";
+
 
 
 
@@ -17,7 +19,9 @@ const Territories = () => {
               <p className="territory-card__stats">663 Units • 76 Projects</p>
               <p className="territory-card__desc">Best El Shorouk Compound. El Shorouk City is one of the most beautiful and peaceful third-generation cities...</p>
             </div>
+            <Link to="/home/property">
             <button className="territory-card__button">MORE DETAILS</button>
+            </Link>
           </div>
         </div>
 
@@ -29,7 +33,9 @@ const Territories = () => {
               <p className="territory-card__stats">9,009 Units • 756 Projects</p>
               <p className="territory-card__desc">The best compound in New Cairo. New Cairo is one of the most prestigious residential neighborhoods...</p>
             </div>
+            <Link to="/home/property">
             <button className="territory-card__button">MORE DETAILS</button>
+            </Link>
           </div>
         </div>
 
@@ -41,7 +47,9 @@ const Territories = () => {
               <p className="territory-card__stats">10,254 Units • 667 Projects</p>
               <p className="territory-card__desc">The best compound in New Administrative Capital. Egypt's newest real estate and investment development project...</p>
             </div>
+            <Link to="/home/property">
             <button className="territory-card__button">MORE DETAILS</button>
+            </Link>
           </div>
         </div>
       </div>

@@ -6,6 +6,7 @@ import Card from "../appartments/card";
 import Territories from "../territories/Territories";
 import Features from "../features/features";
 
+
 import AnimateOnScroll from "../AnimateOnScroll";
 
 export default function Home() {

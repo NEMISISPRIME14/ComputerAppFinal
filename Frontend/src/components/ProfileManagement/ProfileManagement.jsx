@@ -1,14 +1,25 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useMemo, useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import {
-  ChevronLeft, ArrowRight, Edit2, X,
-  Heart, Check, Pencil, MapPin, Phone, Mail, UserCircle2
+  ChevronLeft,
+  ArrowRight,
+  Edit2,
+  X,
+  Heart,
+  Check,
+  Pencil,
+  MapPin,
+  Phone,
+  Mail,
+  UserCircle2,
 } from "lucide-react";
 
-import imgRectangle105 from "../../assets/sowar/f78b0cdd7556128889da58c88bdff8e0ea22dada.png";
-import imgLandscapeDesigns21 from "../../assets/sowar/b4b5763e106eda6831f372a4943db19410d47e2d.png";
-import imgRichardHorvathNWaeTf6Qo0Unsplash2 from "../../assets/sowar/3ba68ebca794d6d97d617807d5448758406dcbad.png";
-import imgTexture from "../../assets/sowar/7007946560060ca9880e8e9ffd6e2658f2bc6c6b.png";
+import "./ProfileManagement.css";
+
+import bgImg from "../../assets/sowar/f78b0cdd7556128889da58c88bdff8e0ea22dada.png";
+import logoImg from "../../assets/sowar/b4b5763e106eda6831f372a4943db19410d47e2d.png";
+import blurImg from "../../assets/sowar/3ba68ebca794d6d97d617807d5448758406dcbad.png";
+import textureImg from "../../assets/sowar/7007946560060ca9880e8e9ffd6e2658f2bc6c6b.png";
 
 import AddCardModal from "./AddCardModal";
 
@@ -16,70 +27,77 @@ import AddCardModal from "./AddCardModal";
 const Toggle = ({ checked, onChange }) => (
   <button
     onClick={onChange}
-    style={{
-      position: "relative",
-      width: 42,
-      height: 14,
-      borderRadius: 9999,
-      background: checked ? "#c6ab7c" : "rgba(0,0,0,0.6)",
-      border: "1px solid rgba(255,255,255,0.15)",
-      transition: "background 0.3s",
-      cursor: "pointer",
-      flexShrink: 0,
-    }}
+    className={`pm-toggle ${checked ? "isOn" : ""}`}
+    type="button"
   >
-    <div
-      style={{
-        position: "absolute",
-        top: "50%",
-        transform: `translateY(-50%) translateX(${checked ? 26 : 1.5}px)`,
-        width: 13.5,
-        height: 13.5,
-        borderRadius: "50%",
-        background: "white",
-        boxShadow: "0 1px 4px rgba(0,0,0,0.4)",
-        transition: "transform 0.3s",
-      }}
-    />
+    <div className="pm-toggleKnob" />
   </button>
 );
 
 // ---- Animated Wave Line ----
 const AnimatedWave = () => {
   const w = 66;
-  const path = `M0 11 C4 5, 8 17, 11 11 C14 5, 17 17, 22 11 C25 5, 29 17, 33 11 C36 5, 40 17, 44 11 C47 5, 51 17, 55 11 C58 5, 62 17, 66 11`;
+  const path =
+    "M0 11 C4 5, 8 17, 11 11 C14 5, 17 17, 22 11 C25 5, 29 17, 33 11 C36 5, 40 17, 44 11 C47 5, 51 17, 55 11 C58 5, 62 17, 66 11";
   return (
-    <div style={{ width: w, height: 22, overflow: "hidden", position: "relative", flexShrink: 0 }}>
+    <div className="pm-waveWrap">
       <motion.div
-        style={{ position: "absolute", top: 0, left: 0, display: "flex" }}
+        className="pm-waveMove"
         animate={{ x: [0, -w] }}
         transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
       >
         <svg width={w * 2} height={22} viewBox={`0 0 ${w * 2} 22`} fill="none">
-          <path d={path} stroke="#c6ab7c" strokeWidth="2" strokeLinecap="round" />
-          <g transform={`translate(${w} 0)`}>
-            <path d={path} stroke="#c6ab7c" strokeWidth="2" strokeLinecap="round" />
-          </g>
+          <path d={path} stroke="white" strokeWidth="1.8" strokeLinecap="round" fill="none" />
+          <path
+            d={path}
+            stroke="white"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            fill="none"
+            transform={`translate(${w}, 0)`}
+          />
         </svg>
       </motion.div>
     </div>
   );
 };
 
-export default function ProfileManagement() {
-  const [activeTab, setActiveTab] = useState("overview");
-  const [editMode, setEditMode] = useState(false);
-  const [showAddCard, setShowAddCard] = useState(false);
+const StaticStraightLine = () => (
+  <div className="pm-straightWrap">
+    <div className="pm-straightLine" />
+  </div>
+);
 
+// ---- Mastercard Icon ----
+const MastercardIcon = () => (
+  <div className="pm-masterIcon">
+    <svg width="21" height="13.3" viewBox="0 0 21 13.3" fill="none">
+      <circle cx="6.63" cy="6.63" r="6.63" fill="#EB001B" />
+      <circle cx="14.37" cy="6.63" r="6.63" fill="#F79E1B" />
+    </svg>
+  </div>
+);
+
+// ---- User Avatar SVG ----
+const AvatarIcon = ({ size = 50 }) => (
+  <svg width={size} height={size} viewBox="0 0 49 49" fill="none">
+    <circle cx="24.5" cy="24.5" r="24.5" fill="#9A9A9A" />
+    <ellipse cx="24.5" cy="40.425" rx="15.925" ry="8.575" fill="white" />
+    <ellipse cx="24.5" cy="21.4375" rx="8.575" ry="7.9625" fill="white" />
+  </svg>
+);
+
+export default function ProfileManagement() {
   const [profile, setProfile] = useState({
     fullName: "Mark Johnson",
     mobile: "(44) 123 1234 123",
     email: "mark@simmmple.com",
     location: "United States",
     bio:
-      "Hi, I'm Mark Johnson, Decisions: If you can't decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term.",
+      "Hi, I'm Mark Johnson, Decisions: If you can't decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).",
   });
 
+  const [editMode, setEditMode] = useState(false);
   const [editProfile, setEditProfile] = useState(profile);
 
   const [settings, setSettings] = useState({
@@ -93,281 +111,421 @@ export default function ProfileManagement() {
   });
 
   const [cards, setCards] = useState([
-    { id: "1", number: "7812 2139 0823 XXXX", validThru: "09/26", cvv: "123", holder: "MARK JOHNSON" },
-    { id: "2", number: "7812 2139 0823 XXXX", validThru: "11/27", cvv: "456", holder: "MARK JOHNSON" },
+    { id: "1", number: "7812 2139 0823 XXXX", validThru: "09/26", cvv: "123" },
+    { id: "2", number: "7812 2139 0823 XXXX", validThru: "11/27", cvv: "456" },
   ]);
 
-  const toggleSetting = (key) => setSettings((p) => ({ ...p, [key]: !p[key] }));
-  const removeCard = (id) => setCards((p) => p.filter((c) => c.id !== id));
-  const handleAddCard = (card) => setCards((p) => [...p, { id: Date.now().toString(), ...card }]);
+  const [showAddCard, setShowAddCard] = useState(false);
+
+  const [creditActive, setCreditActive] = useState(true);
+  const [creditMenuOpen, setCreditMenuOpen] = useState(false);
+
+  const [selectedCardId, setSelectedCardId] = useState(() => cards?.[0]?.id || null);
+  const selectedCard = cards.find((c) => c.id === selectedCardId) || cards[0] || null;
+
+  const [activeTab, setActiveTab] = useState("overview");
+  const [showAttorneyModal, setShowAttorneyModal] = useState(false);
 
   const handleSaveProfile = () => {
     setProfile(editProfile);
     setEditMode(false);
   };
 
+  const handleAddCard = (card) => {
+    const newCard = { id: Date.now().toString(), ...card };
+    setCards((prev) => [...prev, newCard]);
+    setSelectedCardId(newCard.id);
+  };
+
+  const toggleSetting = (key) => setSettings((prev) => ({ ...prev, [key]: !prev[key] }));
+
+  const removeCard = (id) => {
+    setCards((prev) => {
+      const next = prev.filter((c) => c.id !== id);
+      if (id === selectedCardId) setSelectedCardId(next[0]?.id || null);
+      return next;
+    });
+  };
+
+  const fields = useMemo(
+    () => [
+      { label: "Full Name:", key: "fullName", icon: <UserCircle2 size={12} /> },
+      { label: "Mobile:", key: "mobile", icon: <Phone size={12} /> },
+      { label: "Email:", key: "email", icon: <Mail size={12} /> },
+      { label: "Location:", key: "location", icon: <MapPin size={12} /> },
+    ],
+    []
+  );
+
   return (
-    <div style={{ minHeight: "100vh", background: "#0a0800", position: "relative", overflow: "hidden", fontFamily: "Inter, system-ui, Arial" }}>
-      {/* background */}
-      <img src={imgRectangle105} alt="" style={{ position: "fixed", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
-      <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.65)", backdropFilter: "blur(10px)" }} />
+    <div className="pm-page">
+      {/* Background */}
+      
 
-      <div style={{ position: "relative", zIndex: 2, minHeight: "100vh" }}>
-        {/* top bar */}
-        <div style={{ padding: "16px 20px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <button
-              onClick={() => window.history.back()}
-              style={{
-                width: 44, height: 44, borderRadius: 14,
-                border: "1px solid rgba(255,255,255,0.10)",
-                background: "rgba(0,0,0,0.25)",
-                color: "white", cursor: "pointer",
-              }}
-            >
-              <ChevronLeft />
-            </button>
-            <div style={{ color: "white", fontSize: 18, fontWeight: 800 }}>Profile Management</div>
-          </div>
+      <div className="pm-content">
 
-          <div style={{ display: "flex", gap: 10 }}>
-            {["overview", "settings"].map((t) => (
-              <button
-                key={t}
-                onClick={() => setActiveTab(t)}
-                style={{
-                  padding: "10px 14px",
-                  borderRadius: 999,
-                  border: "1px solid rgba(255,255,255,0.10)",
-                  background: activeTab === t ? "rgba(255,255,255,0.10)" : "rgba(0,0,0,0.20)",
-                  color: "white",
-                  fontWeight: 800,
-                  cursor: "pointer",
-                  textTransform: "capitalize",
-                }}
-              >
-                {t}
-              </button>
-            ))}
-          </div>
-        </div>
 
-        {/* header card */}
-        <div style={{ padding: "0 20px 16px" }}>
-          <div style={{ borderRadius: 22, overflow: "hidden", border: "1px solid rgba(255,255,255,0.12)", background: "rgba(0,0,0,0.25)" }}>
-            <div style={{ height: 170, position: "relative" }}>
-              <img src={imgLandscapeDesigns21} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-              <img src={imgTexture} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.35, mixBlendMode: "overlay" }} />
-            </div>
+        {/* MAIN */}
+        <div className="pm-main">
 
-            <div style={{ display: "flex", alignItems: "center", gap: 14, padding: 16 }}>
-              <div style={{ width: 64, height: 64, borderRadius: 999, overflow: "hidden", border: "2px solid rgba(255,255,255,0.25)" }}>
-                <img src={imgRichardHorvathNWaeTf6Qo0Unsplash2} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-              </div>
 
-              <div style={{ flex: 1, color: "white" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, fontWeight: 900, fontSize: 18 }}>
-                  {profile.fullName} <UserCircle2 size={18} style={{ opacity: 0.75 }} />
+          <h1 className="pm-title">My Profile</h1>
+
+          {/* USER BAR */}
+          <div className="pm-userBar">
+            <div className="pm-userLeft">
+              <div className="pm-avatarWrap">
+                <div className="pm-avatarGlass">
+                  <AvatarIcon size={40} />
                 </div>
-
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 14, marginTop: 8, fontSize: 12, opacity: 0.85 }}>
-                  <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><Phone size={14} /> {profile.mobile}</span>
-                  <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><Mail size={14} /> {profile.email}</span>
-                  <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><MapPin size={14} /> {profile.location}</span>
+                <div className="pm-avatarEditDot">
+                  <Pencil size={9} color="white" />
                 </div>
               </div>
 
-              <button
-                onClick={() => {
-                  if (!editMode) setEditProfile(profile);
-                  setEditMode((p) => !p);
-                }}
-                style={{
-                  width: 44, height: 44, borderRadius: 14,
-                  border: "1px solid rgba(255,255,255,0.10)",
-                  background: "rgba(0,0,0,0.25)",
-                  cursor: "pointer", color: "white",
-                }}
+              <div>
+                <p className="pm-userName">{profile.fullName}</p>
+                <p className="pm-userEmail">{profile.email}</p>
+              </div>
+            </div>
+
+            <div className="pm-tabs">
+              <motion.button
+                whileHover={{ opacity: 0.9 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => setActiveTab("overview")}
+                className={`pm-tabBtn ${activeTab === "overview" ? "pm-tabBtnActive" : ""}`}
+                type="button"
               >
-                {editMode ? <X /> : <Pencil />}
-              </button>
+                PROFILE OVERVIEW
+              </motion.button>
+
             </div>
           </div>
-        </div>
 
-        {/* content */}
-        <div style={{ padding: "0 20px 40px", maxWidth: 1100, margin: "0 auto", display: "grid", gap: 14 }}>
-          <AnimatePresence mode="wait">
-            {activeTab === "overview" && (
-              <motion.div key="overview" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }}>
-                {/* About */}
-                <Box title="About">
-                  {editMode ? (
-                    <div style={{ display: "grid", gap: 10 }}>
-                      <Input label="Full Name" value={editProfile.fullName} onChange={(v) => setEditProfile((p) => ({ ...p, fullName: v }))} />
-                      <Input label="Mobile" value={editProfile.mobile} onChange={(v) => setEditProfile((p) => ({ ...p, mobile: v }))} />
-                      <Input label="Email" value={editProfile.email} onChange={(v) => setEditProfile((p) => ({ ...p, email: v }))} />
-                      <Input label="Location" value={editProfile.location} onChange={(v) => setEditProfile((p) => ({ ...p, location: v }))} />
-                      <Textarea label="Bio" value={editProfile.bio} onChange={(v) => setEditProfile((p) => ({ ...p, bio: v }))} />
+          {/* TOP GRID */}
+          <div className="pm-gridTop">
+            {/* Welcome */}
+            <div className="pm-welcome">
+              <div className="pm-welcomeBg">
+                <img src={logoImg} alt="" />
+              </div>
+              <div className="pm-welcomeOverlay" />
+              <div className="pm-welcomeContent">
+                <p className="pm-welcomeSmall">Welcome</p>
+                <h2 className="pm-welcomeTitle">
+                  Nice to see you, user
+                  <br />
+                  back!
+                </h2>
 
-                      <button
-                        onClick={handleSaveProfile}
-                        style={{
-                          padding: "12px 14px",
-                          borderRadius: 14,
-                          border: "none",
-                          cursor: "pointer",
-                          fontWeight: 900,
-                          background: "linear-gradient(135deg, #c6ab7c, rgba(198,171,124,0.55))",
-                        }}
-                      >
-                        Save Changes
-                      </button>
-                    </div>
-                  ) : (
-                    <div style={{ color: "rgba(255,255,255,0.82)", lineHeight: 1.6 }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
-                        <AnimatedWave />
-                        <div style={{ fontWeight: 900, color: "white" }}>A little about me</div>
-                      </div>
-                      {profile.bio}
-                    </div>
-                  )}
-                </Box>
-
-                {/* Payment Cards */}
-                <Box
-                  title="Payment Cards"
-                  right={
-                    <button
-                      onClick={() => setShowAddCard(true)}
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: 8,
-                        padding: "10px 12px",
-                        borderRadius: 14,
-                        cursor: "pointer",
-                        border: "1px solid rgba(255,255,255,0.10)",
-                        background: "rgba(0,0,0,0.20)",
-                        color: "white",
-                        fontWeight: 800,
-                      }}
-                    >
-                      <span style={{ fontSize: 18, lineHeight: 0 }}>+</span> Add
-                    </button>
-                  }
+                <motion.button
+                  whileHover={{ x: 4 }}
+                  onClick={() => setShowAttorneyModal(true)}
+                  className="pm-welcomeLink"
+                  type="button"
                 >
-                  <div style={{ display: "grid", gap: 10 }}>
-                    {cards.map((c) => (
-                      <div key={c.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: 14, borderRadius: 16, border: "1px solid rgba(255,255,255,0.10)", background: "rgba(0,0,0,0.20)" }}>
-                        <div style={{ color: "white" }}>
-                          <div style={{ fontWeight: 900, letterSpacing: 1 }}>{c.number}</div>
-                          <div style={{ fontSize: 12, opacity: 0.75, marginTop: 4 }}>
-                            Holder: {c.holder} • Valid: {c.validThru}
-                          </div>
-                        </div>
+                  sign online attorney <ArrowRight size={12} />
+                </motion.button>
+              </div>
+            </div>
 
-                        <button
-                          onClick={() => removeCard(c.id)}
-                          style={{ width: 40, height: 40, borderRadius: 14, cursor: "pointer", border: "1px solid rgba(255,255,255,0.10)", background: "rgba(0,0,0,0.25)", color: "white" }}
-                          title="Remove"
-                        >
-                          🗑
-                        </button>
+            {/* Profile Info */}
+            <div className="pm-card pm-cardPad">
+              <div className="pm-cardHeader">
+                <h3 className="pm-cardTitle">Profile Informations</h3>
+
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => {
+                    setEditMode(true);
+                    setEditProfile(profile);
+                  }}
+                  className="pm-editBtn"
+                  type="button"
+                >
+                  <Edit2 size={14} color="#c6ab7c" />
+                </motion.button>
+              </div>
+
+              {editMode ? (
+                <textarea
+                  className="pm-textarea"
+                  value={editProfile.bio}
+                  onChange={(e) => setEditProfile((p) => ({ ...p, bio: e.target.value }))}
+                  rows={3}
+                />
+              ) : (
+                <p className="pm-muted pm-bio">{}</p>
+              )}
+
+              <div className="pm-divider" />
+
+              {fields.map(({ label, key }) => (
+                <div key={key} className="pm-fieldRow">
+                  <span className="pm-label">{label}</span>
+
+                  {editMode ? (
+                    <input
+                      className="pm-input"
+                      value={editProfile[key]}
+                      onChange={(e) => setEditProfile((p) => ({ ...p, [key]: e.target.value }))}
+                    />
+                  ) : (
+                    <span className="pm-value">{profile[key]}</span>
+                  )}
+                </div>
+              ))}
+
+              {editMode && (
+                <div className="pm-actions">
+                  <button onClick={() => setEditMode(false)} className="pm-btn pm-btnGhost" type="button">
+                    Cancel
+                  </button>
+                  <button onClick={handleSaveProfile} className="pm-btn pm-btnPrimary" type="button">
+                    <Check size={14} style={{ display: "inline", marginRight: 6 }} />
+                    Save
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* BOTTOM GRID */}
+          <div className="pm-gridBottom">
+            {/* Platform Settings */}
+            <div className="pm-panel pm-panelPad">
+              <h3 className="pm-cardTitle">Platform Settings</h3>
+
+              <p className="pm-sectionLabel">ACCOUNT</p>
+              {[
+                { key: "emailExpert", label: "Email me when expert finish my process" },
+                { key: "emailAnswered", label: "Email me when someone answers to..." },
+                { key: "emailMentioned", label: "Email me when someone mentions me" },
+              ].map(({ key, label }) => (
+                <div key={key} className="pm-toggleRow">
+                  <Toggle checked={settings[key]} onChange={() => toggleSetting(key)} />
+                  <span className="pm-muted">{label}</span>
+                </div>
+              ))}
+
+              <p className="pm-sectionLabel pm-sectionLabelTop">APPLICATION</p>
+              {[
+                { key: "newLaunches", label: "New launches and projects" },
+                { key: "monthlyNews", label: "Monthly news updates" },
+                { key: "newsletter", label: "Subscribe to newsletter" },
+                { key: "mailsWeekly", label: "Receive mails weekly" },
+              ].map(({ key, label }) => (
+                <div key={key} className="pm-toggleRow">
+                  <Toggle checked={settings[key]} onChange={() => toggleSetting(key)} />
+                  <span className="pm-muted">{label}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Credit Card Big */}
+            <div className="pm-creditCard">
+  {/* ✅ Animated gradient layer */}
+  <div className="pm-creditAnim" />
+
+  <div className="pm-creditBlend pm-creditBlendLum">
+    <img src={blurImg} alt="" />
+  </div>
+  <div className="pm-creditBlend pm-creditBlendSoft">
+    <img src={textureImg} alt="" />
+  </div>
+
+              <div className="pm-creditInner">
+                <div className="pm-creditTop">
+                  <p className="pm-creditTitle">YOUR CARD</p>
+                  <div className="pm-creditCircles">
+                    <div className="pm-creditCircle" />
+                    <div className="pm-creditCircle pm-creditCircleOverlap" />
+                  </div>
+                </div>
+
+                <div className="pm-spacer" />
+
+                <p className="pm-creditNumber">
+                  {selectedCard ? selectedCard.number : "XXXX XXXX XXXX XXXX"}
+                </p>
+
+                <div className="pm-creditMetaRow">
+                  <div>
+                    <p className="pm-creditMetaLabel">VALID THRU</p>
+                    <p className="pm-creditMetaValue">{selectedCard ? selectedCard.validThru : "MM/YY"}</p>
+                  </div>
+                  <div>
+                    <p className="pm-creditMetaLabel">CVV</p>
+                    <p className="pm-creditMetaValue">{selectedCard ? selectedCard.cvv : "•••"}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column */}
+            <div className="pm-rightCol">
+              {/* Credit Balance */}
+              <div className="pm-balance">
+                <div className="pm-balanceTop">
+                  <p className="pm-balanceLabel">Credit Balance</p>
+
+                  <div className="pm-menuWrap">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCreditMenuOpen((v) => !v);
+                      }}
+                      className="pm-dotsBtn"
+                      aria-label="Credit balance menu"
+                    >
+                      <div className="pm-dots">
+                        {[0, 1, 2].map((i) => (
+                          <div key={i} className="pm-dot" />
+                        ))}
                       </div>
-                    ))}
+                    </button>
+
+                    <AnimatePresence>
+                      {creditMenuOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 6, scale: 0.98 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                          transition={{ duration: 0.15 }}
+                          onClick={(e) => e.stopPropagation()}
+                          className="pm-menu"
+                        >
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setCreditActive((a) => !a);
+                              setCreditMenuOpen(false);
+                            }}
+                            className="pm-menuItem"
+                          >
+                            {creditActive ? "Deactivate" : "Activate"}
+                          </button>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
-                </Box>
-              </motion.div>
-            )}
+                </div>
 
-            {activeTab === "settings" && (
-              <motion.div key="settings" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }}>
-                <Box title="Notifications">
-                  <SettingRow label="Email me when someone answers my question" value={settings.emailAnswered} onToggle={() => toggleSetting("emailAnswered")} />
-                  <SettingRow label="Email me when I'm mentioned" value={settings.emailMentioned} onToggle={() => toggleSetting("emailMentioned")} />
-                  <SettingRow label="Email me when I become an expert" value={settings.emailExpert} onToggle={() => toggleSetting("emailExpert")} />
-                </Box>
+                <div className="pm-balanceBottom">
+                  <p className="pm-balanceValue" style={{ filter: creditActive ? "none" : "blur(6px)" }}>
+                    $25,215
+                  </p>
+                  {creditActive ? <AnimatedWave /> : <StaticStraightLine />}
+                </div>
 
-                <Box title="News">
-                  <SettingRow label="New launches" value={settings.newLaunches} onToggle={() => toggleSetting("newLaunches")} />
-                  <SettingRow label="Monthly news" value={settings.monthlyNews} onToggle={() => toggleSetting("monthlyNews")} />
-                  <SettingRow label="Newsletter" value={settings.newsletter} onToggle={() => toggleSetting("newsletter")} />
-                  <SettingRow label="Weekly mails" value={settings.mailsWeekly} onToggle={() => toggleSetting("mailsWeekly")} />
-                </Box>
+                <div className="pm-statusRow">
+                  <div className={`pm-statusDot ${creditActive ? "isOn" : "isOff"}`} />
+                  <span className="pm-statusText">{creditActive ? "Active" : "Inactive"}</span>
+                </div>
+              </div>
 
-                <Box title="Preferences">
-                  <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-                    <Tag icon={<Heart size={16} />} text="Favorites" />
-                    <Tag icon={<Check size={16} />} text="Verified" />
-                    <Tag icon={<Edit2 size={16} />} text="Editable" />
-                    <Tag icon={<ArrowRight size={16} />} text="Next" />
-                  </div>
-                </Box>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              {/* Payment Method */}
+              <div className="pm-payment">
+                <div className="pm-paymentHeader">
+                  <p className="pm-paymentTitle">Payment Method</p>
+
+                  {/* الزرار ستاتيك زي ما طلبت */}
+                  <button onClick={() => setShowAddCard(true)} className="pm-addBtn" type="button">
+                    ADD A NEW CARD
+                  </button>
+                </div>
+
+                <div className="pm-payList">
+                  {cards.map((card) => {
+                    const active = selectedCardId === card.id;
+                    return (
+                      <div key={card.id} className={`pm-neonWrap ${active ? "pm-neonActive" : ""}`}>
+                        <div
+                          className={`pm-payRow ${active ? "pm-payRowActive" : ""}`}
+                          onClick={() => setSelectedCardId(card.id)}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <div className="pm-payLeft">
+                            <MastercardIcon />
+                            <p className="pm-payNumber">{card.number}</p>
+                          </div>
+
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              removeCard(card.id);
+                            }}
+                            className="pm-removeBtn"
+                            title="Remove card"
+                            type="button"
+                          >
+                            <X size={12} color="white" />
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+
+                  {cards.length === 0 && <div className="pm-empty">No payment methods added yet</div>}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <AddCardModal isOpen={showAddCard} onClose={() => setShowAddCard(false)} onAdd={handleAddCard} />
       </div>
-    </div>
-  );
-}
 
-function Box({ title, right, children }) {
-  return (
-    <div style={{ borderRadius: 22, border: "1px solid rgba(255,255,255,0.12)", background: "rgba(0,0,0,0.25)", padding: 16 }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
-        <div style={{ color: "white", fontWeight: 900 }}>{title}</div>
-        {right}
-      </div>
-      {children}
-    </div>
-  );
-}
+      {/* Add Card Modal */}
+      <AddCardModal isOpen={showAddCard} onClose={() => setShowAddCard(false)} onAdd={handleAddCard} />
 
-function SettingRow({ label, value, onToggle }) {
-  return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 0", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-      <div style={{ color: "rgba(255,255,255,0.85)", fontWeight: 700 }}>{label}</div>
-      <Toggle checked={value} onChange={onToggle} />
-    </div>
-  );
-}
+      {/* Attorney Modal */}
+      <AnimatePresence>
+        {showAttorneyModal && (
+          <div className="pm-modalWrap">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="pm-modalBackdrop"
+              onClick={() => setShowAttorneyModal(false)}
+            />
 
-function Tag({ icon, text }) {
-  return (
-    <span style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 12px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.12)", background: "rgba(0,0,0,0.22)", color: "white", fontWeight: 800 }}>
-      {icon} {text}
-    </span>
-  );
-}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              className="pm-modal"
+            >
+              <button onClick={() => setShowAttorneyModal(false)} className="pm-modalClose" type="button">
+                <X size={20} color="rgba(255,255,255,0.6)" />
+              </button>
 
-function Input({ label, value, onChange }) {
-  return (
-    <div>
-      <div style={{ fontSize: 12, marginBottom: 6, color: "rgba(255,255,255,0.65)" }}>{label}</div>
-      <input
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        style={{ width: "100%", padding: "10px 12px", borderRadius: 12, outline: "none", color: "white", background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.15)" }}
-      />
-    </div>
-  );
-}
+              <div className="pm-modalIcon">
+                <UserCircle2 size={32} color="white" />
+              </div>
 
-function Textarea({ label, value, onChange }) {
-  return (
-    <div>
-      <div style={{ fontSize: 12, marginBottom: 6, color: "rgba(255,255,255,0.65)" }}>{label}</div>
-      <textarea
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        rows={4}
-        style={{ width: "100%", padding: "10px 12px", borderRadius: 12, outline: "none", color: "white", background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.15)", resize: "vertical" }}
-      />
+              <h3 className="pm-modalTitle">Sign Online Attorney</h3>
+              <p className="pm-modalText">
+                Connect with certified legal professionals online. Get expert advice, sign documents digitally, and
+                manage all your legal needs from one place.
+              </p>
+
+              <div className="pm-modalBtns">
+                <button onClick={() => setShowAttorneyModal(false)} className="pm-btn pm-btnGhost" type="button">
+                  Close
+                </button>
+
+                <button className="pm-btn pm-btnGrad" type="button">
+                  Get Started <ArrowRight size={16} />
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

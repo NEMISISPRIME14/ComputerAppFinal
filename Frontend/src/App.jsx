@@ -27,6 +27,8 @@ import Faq from './components/Faq/Faq'
 import Property from './components/property/property'
 import TrackProcess from "./components/trackprocess/TrackProcess";
 import ProfileManagement from "./components/ProfileManagement/ProfileManagement";
+import RealEstatePlatform from './components/RealEstatePlatform/RealEstatePlatform'
+
 
 function App() {
   const routes = createBrowserRouter([
@@ -80,6 +82,10 @@ function App() {
 
         { path: '*', element: <h1>Page Not Found</h1> },
       ],
+    },
+    {
+      path: '/real-estate',
+      element: <RealEstatePlatform />,
     },
   ])
 
