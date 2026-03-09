@@ -1,3 +1,4 @@
+
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -40,25 +41,17 @@ export default function Signup() {
           <h3 className="text-center text-uppercase fw-bold h1 mb-5">Join us now</h3>
           <form className="row g-3" onSubmit={handleSubmit(onSubmit)}>
             <div className="col-md-6">
-              <label htmlFor="First Name" className="form-label">First Name</label>
-              <input type="text" className="form-control" id="First Name" {...register('first_name', { required: 'First Name is required' })} />
-              {errors.firstname && <span className="text-danger">{errors.first_name.message}</span>}
+              <label htmlFor="Name" className="form-label">Full Name</label>
+              <input type="text" className="form-control" id="Name" {...register('Name', { required: 'Full Name is required' })} />
+              {errors.fullname && <span className="text-danger">{errors.name.message}</span>}
             </div>
+
             <div className="col-md-6">
-              <label htmlFor="Last Name" className="form-label">Last Name</label>
-              <input type="text" className="form-control" id="Last Name"  {...register('last_name', { required: 'Last Name is required' })} />
-              {errors.lastname && <span className="text-danger">{errors.last_name.message}</span>}
-            </div>
-            <div className="col-md-6">
-              <label htmlFor="phone" className="form-label">Phone</label>
+              <label htmlFor="inputphone4" className="form-label">Phone</label>
               <input type="text" className="form-control" id="phone" {...register('phone', { required: 'Phone is required' })} />
               {errors.phone && <span className="text-danger">{errors.phone.message}</span>}
             </div>
-            <div className="col-md-6">
-              <label htmlFor="address" className="form-label">Address</label>
-              <input type="text" className="form-control" id="address"  {...register('address', { required: 'Address is required' })} />
-              {errors.address && <span className="text-danger">{errors.address.message}</span>}
-            </div>
+
             <div className="col-md-6">
               <label htmlFor="inputEmail4" className="form-label">Email</label>
               <input type="email" className="form-control" id="inputEmail4" {...register('email', { required: 'Email is required' })} />
@@ -70,6 +63,25 @@ export default function Signup() {
               <input type="password" className="form-control" id="inputPassword4" {...register('password', { required: 'Password is required' })} />
               {errors.password && <span className="text-danger">{errors.password.message}</span>}
             </div>
+
+            <div className="col-md-6">
+              <label htmlFor="inputPassword4" className="form-label">confirm Password</label>
+              <input type="password" className="form-control" id="inputPassword4" {...register('confirmpassword', { required: 'Password is required' })} />
+              {errors.confirmpassword && <span className="text-danger">{errors.confirmpassword.message}</span>}
+            </div>
+
+            <div className="col-md-6">
+              <label htmlFor="inputnationalid" className="form-label">national-id</label>
+              <input type="file" className="form-control" id="national_id" {...register('national_id', { required: 'national_id is required' })} />
+              {errors.NationalId && <span className="text-danger">{errors.NationalId.message}</span>}
+            </div>
+
+            <div className="col-md-6">
+              <label htmlFor="role" className="form-label">role</label>
+              <input type="input" className="form-control" id="role" {...register('role', { required: 'role is required' })} />
+              {errors.role && <span className="text-danger">{errors.role.message}</span>}
+            </div>
+
             <div className="mb-4">
               <Link to="/login" className="">Already Have an account?</Link>
             </div>
@@ -80,3 +92,5 @@ export default function Signup() {
     </>
   )
 }
+
+
